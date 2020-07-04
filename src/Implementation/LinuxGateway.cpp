@@ -14,7 +14,7 @@
 
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95)
     LinuxGateway::LinuxGateway() :
-        rh_driver(),
+        rh_driver(RPI_LORA_SS_PIN, RPI_LORA_INTR_PIN),
         manager(rh_driver, OWN_ADDRESS)
          { }
 #endif
