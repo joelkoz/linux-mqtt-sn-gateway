@@ -36,6 +36,12 @@
 #include <RHReliableDatagram.h>
 #include <Arduino.h>
 #endif
+#if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
+#include <LoRaSocket.h>
+#include <RH_LoRa.h>
+#include <RHReliableDatagram.h>
+#include <Arduino.h>
+#endif
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_SINGLE_TCP)
 #include "SingleTcpSocket.h"
 #endif
@@ -61,6 +67,11 @@ class LinuxGateway : public Gateway {
     RHReliableDatagram manager;
     RF95Socket mqttsnSocket;
     SerialLinux Serial;
+#elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
+    RH_LoRa rh_driver;
+    RHReliableDatagram manager;
+    LoRaSocket mqttsnSocket;
+    SerialLinux Serial;
 #elif defined(GATEWAY_TRANSMISSION_PROTOCOL_SINGLE_TCP)
     SingleTcpSocket mqttsnSocket;
 #else
@@ -83,6 +94,9 @@ public:
     LinuxGateway();
 #endif
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95)
+    LinuxGateway();
+#endif
+#if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
     LinuxGateway();
 #endif
 

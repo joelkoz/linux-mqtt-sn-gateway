@@ -12,7 +12,7 @@
 #include<stdio.h>
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_NRF24)
 #include <RasPi.h>
-#elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95)
+#elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95) || defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
 #include <wiringPi.h>
 #include <Arduino.h>
 #else
@@ -27,7 +27,7 @@ private:
 
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_NRF24)
     // already as extern Serial in simulator.h
-#elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95)
+#elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95) || defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
     SerialLinux Serial;
 #else
 #ifndef Arduino_h

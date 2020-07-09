@@ -7,6 +7,8 @@
 LinuxSystem::LinuxSystem() { }
 #elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95)
 LinuxSystem::LinuxSystem() { }
+#elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
+LinuxSystem::LinuxSystem() { }
 #else
 #ifndef Arduino_h
 LinuxSystem::LinuxSystem() {
