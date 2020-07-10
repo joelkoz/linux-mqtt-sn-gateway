@@ -40,7 +40,7 @@
 #include <Arduino.h>
 #endif
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
-#include <LoRaSocket.h>
+#include <RHReliableDatagramSocket.h>
 #include <RH_LoRa.h>
 #include <RHReliableDatagram.h>
 #include <Arduino.h>
@@ -75,7 +75,7 @@ class LinuxGateway : public Gateway {
 #elif defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
     RH_LoRa rh_driver;
     RHReliableDatagram manager;
-    LoRaSocket mqttsnSocket;
+    RHReliableDatagramSocket mqttsnSocket;
     SerialLinux Serial;
 #elif defined(GATEWAY_TRANSMISSION_PROTOCOL_SINGLE_TCP)
     SingleTcpSocket mqttsnSocket;
