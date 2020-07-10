@@ -14,7 +14,15 @@
 
 #if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_RF95)
     LinuxGateway::LinuxGateway() :
-        rh_driver(RPI_LORA_SS_PIN, RPI_LORA_INTR_PIN),
+        rh_driver(),
+        manager(rh_driver, OWN_ADDRESS)
+         { }
+#endif
+
+
+#if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
+    LinuxGateway::LinuxGateway() :
+        rh_driver(),
         manager(rh_driver, OWN_ADDRESS)
          { }
 #endif
@@ -59,6 +67,25 @@ bool LinuxGateway::begin() {
     }
     mqttsnSocket.setManager(&manager);
 #endif
+
+#if defined(GATEWAY_TRANSMISSION_PROTOCOL_RASPBERRY_RH_LORA)
+
+    // Use WiringPi pin numbering scheme...
+    wiringPiSetup();
+    
+    if (!rh_driver.init()) {
+        Serial.println("Failed to initinialize RH_LoRa driver");
+    }
+
+    if (!rh_driver.setFrequency(FREQUENCY)) {
+        Serial.println("Failure set LoRa FREQUENCY");
+    }
+
+    manager.setTimeout(2000);
+
+    mqttsnSocket.setManager(&manager);
+#endif
+
 
     Gateway::setLoggerInterface(&logger);
     Gateway::setSocketInterface(&mqttsnSocket);
