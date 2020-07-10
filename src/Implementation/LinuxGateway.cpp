@@ -81,6 +81,8 @@ bool LinuxGateway::begin() {
         Serial.println("Failure set LoRa FREQUENCY");
     }
 
+    manager.setTimeout(2000);
+
     mqttsnSocket.setManager(&manager);
 #endif
 
