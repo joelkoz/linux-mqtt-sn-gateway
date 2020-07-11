@@ -65,4 +65,5 @@ void LinuxLogger::append_log(const char *msg) {
         return;
     }
     Serial.print(msg);
+    fflush(stdout);
 }
