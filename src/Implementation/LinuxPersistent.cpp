@@ -1336,16 +1336,29 @@ uint16_t LinuxPersistent::get_nth_subscribed_topic_id(uint16_t n) {
            strlen(SUBSCRIBE_FILE_ENDING));
     _open_file = SD.open(filename_with_extension, FILE_READ);
 
-    _open_file.seek(n * sizeof(entry_subscription));
+    uint16_t entry_number = 0;
+    int readChars = 0;
     entry_subscription entry;
-    memset(&entry, 0, sizeof(entry_subscription));
-    uint16_t buffer_size = sizeof(entry_subscription);
-    int readChars = _open_file.read((char *) &entry, buffer_size);
+    do {
+        memset(&entry, 0, sizeof(entry_subscription));
+        uint16_t buffer_size = sizeof(entry_subscription);
+        readChars = _open_file.read((char *) &entry, buffer_size);
+        if (readChars == buffer_size &&
+            entry.topic_id != 0) {
+            if (entry_number == n) {
+                return entry.topic_id;
+            }
+            entry_number++;
+        }
+    } while (readChars > 0);
 
-    if (readChars == buffer_size &&
-        entry.topic_id != 0) {
-        return entry.topic_id;
-    }
+#if PERSISTENT_DEBUG
+    logger->start_log("get_nth_subscribed_topic_id(", 1);
+    char snum[10];
+    sprintf(snum, "%d", n);
+    logger->append_log(snum);
+    logger->append_log(") found no such topic number\n");
+#endif
     return 0;
 }
 
