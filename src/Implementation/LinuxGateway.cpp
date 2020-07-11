@@ -81,11 +81,13 @@ bool LinuxGateway::begin() {
         Serial.println("Failure set LoRa FREQUENCY");
     }
 
-    manager.setTimeout(2000);
+    manager.setTimeout(4000);
 
     mqttsnSocket.setManager(&manager);
 #endif
 
+    // Uncomment next line for full debuggin...
+    // logger.set_log_lvl(10);
 
     Gateway::setLoggerInterface(&logger);
     Gateway::setSocketInterface(&mqttsnSocket);
