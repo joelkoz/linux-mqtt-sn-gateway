@@ -22,6 +22,7 @@ bool RHSerialSocket::begin() {
     this->setManager(new RHReliableDatagram(*driver, this->ownAddress));
     this->manager->setTimeout(2000);
     this->manager->setRetries(2);
+    this->setReliableProtocol(false);
 
     return RHReliableDatagramSocket::begin();
 }

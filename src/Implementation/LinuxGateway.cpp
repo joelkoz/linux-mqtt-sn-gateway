@@ -83,9 +83,10 @@ bool LinuxGateway::begin() {
 
     manager.setTimeout(6000);
     manager.setRetries(5);
-    manager.setReliableProtocol(false);
 
     mqttsnSocket.setManager(&manager);
+    mqttsnSocket.setReliableProtocol(false);
+
 #endif
 
     // Uncomment next line for full debuggin...
